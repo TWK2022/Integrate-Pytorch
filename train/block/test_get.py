@@ -94,7 +94,7 @@ class OD(object):
                                                 .to(args.device))*dict_dataset['stride'][i]
                     pred[i][0][:, :, :, 1]=(2*pred[i][0][:, :, :, 1]-0.5+torch.arange(args.OD_output[0][i])
                                                 .unsqueeze(1).to(args.device))*dict_dataset['stride'][i]
-                    for j in range(args.OD_output[1][0]):
+                    for j in range(args.OD_output[1]):
                         pred[i][0][j, :, :, 2:4]=4*pred[i][0][j, :, :, 2:4]*anchor[i][j]
                     mask_choose = torch.where(pred[i][0][:, :, :, 4] > args.OD_confidence_threshold, True, False)
                     list_choose[i]=pred[i][0][mask_choose]
