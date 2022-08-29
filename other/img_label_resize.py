@@ -29,7 +29,7 @@ for i in range(len(dir_img)):
         continue
     if w0>=h0: #宽大于高
         w=size
-        h=int(len(img)*size/len(img[0]))
+        h=int(w/w0*h0)
         img=cv2.resize(img,(w,h))
         add_y=(w-h)//2
         img=cv2.copyMakeBorder(img,add_y,w-h-add_y,0,0,cv2.BORDER_CONSTANT,value=(0,0,0))
@@ -38,8 +38,8 @@ for i in range(len(dir_img)):
         w=label['w'].values * w / w0
         h=label['h'].values * h / h0
     else: #宽小于高
-        w=int(len(img[0])*size/len(img))
         h=size
+        w=int(h/h0*w0)
         img=cv2.resize(img,(w,h))
         add_x=(h-w)//2
         img=cv2.copyMakeBorder(img,0,0,add_x,h-w-add_x,cv2.BORDER_CONSTANT,value=(0,0,0))
