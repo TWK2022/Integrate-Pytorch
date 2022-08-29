@@ -92,13 +92,13 @@ class OD_dataset(torch.utils.data.Dataset):
         list_mask=[0 for i in range(len(args.OD_output[0]))]
         list_label=[0 for i in range(len(args.OD_output[0]))]
         for i,stride in enumerate(dict_dataset['stride']):
-            mask=torch.zeros((args.OD_output[1][0],args.OD_output[0][i],args.OD_output[0][i]),dtype=bool).to(args.device)
-            label=torch.zeros((args.OD_output[1][0],args.OD_output[0][i],args.OD_output[0][i],5+args.OD_class)).to(args.device)
+            mask=torch.zeros((args.OD_output[1],args.OD_output[0][i],args.OD_output[0][i]),dtype=bool).to(args.device)
+            label=torch.zeros((args.OD_output[1],args.OD_output[0][i],args.OD_output[0][i],5+args.OD_class)).to(args.device)
             label_train = torch.tensor(dict_dataset['label_train'][index][1]).to(args.device)
             xy_stride=label_train[:,0:2]/stride
             label_train[:, 0:2]=xy_stride%1
-            label_train=label_train.repeat(len(args.OD_anchor[i]),1,1)
-            for j in range(args.OD_output[1][0]):
+            label_train=label_train.repeat(args.OD_output[1],1,1)
+            for j in range(args.OD_output[1]):
                 label_train[j,:,2:4]=label_train[j,:,2:4]/ self.anchor[i][j]
             x_grid,y_grid=xy_stride[:,0].type(torch.int32),xy_stride[:,1].type(torch.int32) #原标签
             x_add=torch.clamp(x_grid+2*torch.round(xy_stride[:,0]-x_grid).type(torch.int32)-1,0,args.OD_output[0][i]-1) #增加的标签
