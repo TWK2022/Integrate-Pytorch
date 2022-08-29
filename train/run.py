@@ -45,7 +45,7 @@ parser.add_argument('--TSF_plot', default=[True,300], type=list,help='|TSF是否
 parser.add_argument('--OD_size', default=640, type=int, help='|OD输入图片大小|')
 parser.add_argument('--OD_class', default=1, type=int, help='|OD类别数|')
 parser.add_argument('--OD_smooth', default=[0.05,0.95], type=list, help='|OD标签平滑的值|')
-parser.add_argument('--OD_output', default=[[80,40,20],[3]], type=list, help='|OD输出形状|')
+parser.add_argument('--OD_output', default=[[80,40,20],3], type=list, help='|OD输出形状|')
 parser.add_argument('--OD_anchor', default=[[[10,13],[16,30],[33,23]],[[30,61],[62,45],[59,119]],[[116,90],[156,198],[373,326]]],type=list, help='|OD先验框|')
 parser.add_argument('--OD_confidence_threshold', default=0.8, type=float, help='|OD准确率计算和筛选框的置信度阈值，不影响训练，基准为0.5|')
 parser.add_argument('--OD_plot', default=[True,2], type=list, help='|OD是否画出并保存测试的图片和画出最后几张的图片数量|')
