@@ -57,7 +57,7 @@ for i in range(len(dir_img)):
 print('总数:',len(dir_img))
 
 #检验
-class_=class_=label['class']
+class_=label['class']
 frame=label[['Cx','Cy','w','h']].values
 frame[:,0:2] = frame[:,0:2] - 1/2*frame[:,2:4]
 frame[:, 2:4] = frame[:, 2:4] + frame[:, 0:2]
