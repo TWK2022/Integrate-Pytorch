@@ -109,24 +109,24 @@ class OD(object):
             pass
         elif w0 >= h0:  # 宽大于高
             w = self.args.OD_size
-            h = int(len(img) * self.args.OD_size / len(img[0]))
+            h = int(w / w0 * h0)
             img = cv2.resize(img, (w, h))
             add_y = (w - h) // 2
             img = cv2.copyMakeBorder(img, add_y, w - h - add_y, 0, 0, cv2.BORDER_CONSTANT, value=(0, 0, 0))
-            frame[:,0] = frame[:,0] * w / w0
-            frame[:,1] = frame[:,1] * h / h0 + add_y
-            frame[:,2] = frame[:,2] * w / w0
-            frame[:,3] = frame[:,3] * h / h0
+            frame[:,0] = np.around(frame[:,0] * w / w0).astype(np.int32)
+            frame[:,1] = np.around(frame[:,1] * h / h0 + add_y).astype(np.int32)
+            frame[:,2] = np.around(frame[:,2] * w / w0).astype(np.int32)
+            frame[:,3] = np.around(frame[:,3] * h / h0).astype(np.int32)
         else:  # 宽小于高
-            w = int(len(img[0]) * self.args.OD_size / len(img))
             h = self.args.OD_size
+            w = int(h / h0 * w0)
             img = cv2.resize(img, (w, h))
             add_x = (h - w) // 2
             img = cv2.copyMakeBorder(img, 0, 0, add_x, h - w - add_x, cv2.BORDER_CONSTANT, value=(0, 0, 0))
-            frame[:, 0] = frame[:, 0] * w / w0 + add_x
-            frame[:, 1] = frame[:, 1] * h / h0
-            frame[:, 2] = frame[:, 2] * w / w0
-            frame[:, 3] = frame[:, 3] * h / h0
+            frame[:, 0] = np.around(frame[:, 0] * w / w0 + add_x).astype(np.int32)
+            frame[:, 1] = np.around(frame[:, 1] * h / h0).astype(np.int32)
+            frame[:, 2] = np.around(frame[:, 2] * w / w0).astype(np.int32)
+            frame[:, 3] = np.around(frame[:, 3] * h / h0).astype(np.int32)
         return img,frame
 
 
