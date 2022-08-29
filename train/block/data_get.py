@@ -72,7 +72,7 @@ class OD(object):
             len_df_label=len(df_label)
             frame=df_label[['Cx','Cy','w','h']].values.astype(np.int32)
             img,frame=self._resize(img,frame)
-            frame=np.clip(frame,0,args.OD_size-1)
+            frame=np.clip(frame,0,args.OD_size-1) #边框不能超出图片，边框在边界上时需要近似-1
             self.list_img[i] = img
             class_name=df_label['class'].values
             class_onehot=np.zeros((len_df_label,args.OD_class),dtype=np.float32)
