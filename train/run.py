@@ -51,7 +51,7 @@ parser.add_argument('--OD_confidence_threshold', default=0.8, type=float, help='
 parser.add_argument('--OD_plot', default=[True,2], type=list, help='|OD是否画出并保存测试的图片和画出最后几张的图片数量|')
 parser.add_argument('--OD_plot_show', default=False, type=list, choices=[True,False], help='|OD是否在页面显示非极大值抑制前和后的图片|')
 parser.add_argument('--OD_plot_screen', default=300, type=int, help='|OD非极大值抑制前根据置信度排名筛选出的框数|')
-parser.add_argument('--OD_plot_threshold', default=0.1, type=float, help='|OD画图时消除同类别重叠框的iou阈值，越低筛选出的框越少|')
+parser.add_argument('--OD_plot_threshold', default=0.2, type=float, help='|OD画图时消除同类别重叠框的iou阈值，越低筛选出的框越少|')
 
 args = parser.parse_args()
 args.name=args.type+'_'+args.model+'_'+args.data_name
