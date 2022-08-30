@@ -47,7 +47,6 @@ for i in range(len(dir_img)):
         Cy = np.around(label['Cy'].values * h / h0).astype(np.int32)
         w = np.around(label['w'].values * w / w0).astype(np.int32)
         h = np.around(label['h'].values * h / h0).astype(np.int32)
-    label=label.drop(['Cx','Cy','w','h'],axis=1)
     label['Cx']=Cx
     label['Cy']=Cy
     label['w']=w
