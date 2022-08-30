@@ -29,7 +29,6 @@ for i in range(len(dir_xml)):
     h=df['h'].values - df['Cy'].values
     Cx=df['Cx'].values+1/2*w
     Cy=df['Cy'].values+1/2*h
-    df = df.drop(['Cx', 'Cy', 'w', 'h'], axis=1)
     df['Cx']=np.around(Cx).astype(np.int32)
     df['Cy']=np.around(Cy).astype(np.int32)
     df['w']=np.around(w).astype(np.int32)
