@@ -64,7 +64,7 @@ class YOLO5(torch.nn.Module):
         self.args=args
         dimension=args.model_param[0]
         n=args.model_param[1]
-        classes=args.OD_class
+        class_=args.OD_class
         self.YOLO5_1 = conv2d_bn_silu(3,dimension,6,2)
         self.YOLO5_2 = conv2d_bn_silu(dimension,2*dimension,3,2)
         self.YOLO5_3 = c3(2*dimension,2*dimension,n)
@@ -89,12 +89,11 @@ class YOLO5(torch.nn.Module):
         self.YOLO5_19 = conv2d_bn_silu(8 * dimension, 8 * dimension, 3, 2)
         #concat([YOLO5_11,YOLO5_19],axis=1)
         self.YOLO5_20 = c3(16 * dimension, 16 * dimension, n) # output_3
-
-        self.output_1 = torch.nn.Conv2d(4 * dimension, 3 * (classes+ 5), kernel_size=1, stride=1,padding=0)
+        self.output_1 = torch.nn.Conv2d(4 * dimension, 3 * (class_+ 5), kernel_size=1, stride=1,padding=0)
         self.output_sigmoid_1 = torch.nn.Sigmoid()
-        self.output_2 = torch.nn.Conv2d(8 * dimension, 3 * (classes+ 5), kernel_size=1, stride=1,padding=0)
+        self.output_2 = torch.nn.Conv2d(8 * dimension, 3 * (class_+ 5), kernel_size=1, stride=1,padding=0)
         self.output_sigmoid_2 = torch.nn.Sigmoid()
-        self.output_3 = torch.nn.Conv2d(16 * dimension, 3 * (classes+ 5), kernel_size=1, stride=1,padding=0)
+        self.output_3 = torch.nn.Conv2d(16 * dimension, 3 * (class_+ 5), kernel_size=1, stride=1,padding=0)
         self.output_sigmoid_3 = torch.nn.Sigmoid()
     def forward(self,input1):
         img_len = self.args.OD_size
