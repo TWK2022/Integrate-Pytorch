@@ -52,7 +52,7 @@ for i in range(len(dir_img)):
     label['Cy']=Cy
     label['w']=w
     label['h']=h
-    cv2.imwrite(save_img + '/' + dir_img[i],img.astype(np.uint8))
+    cv2.imwrite(save_img + '/' + dir_img[i],img)
     label.to_csv(save_label+'/'+dir_label[i])
 print('总数:',len(dir_img))
 
