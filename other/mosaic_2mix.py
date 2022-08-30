@@ -81,7 +81,7 @@ for i in range(len(dir_img)//2):
         Cy2 += add2
         img1 = cv2.copyMakeBorder(img1, add1, size - add1 - len(img1), size_half - len(img1[0]), 0,
                                   cv2.BORDER_CONSTANT, value=(0, 0, 0))
-        img2 = cv2.copyMakeBorder(img2, add2, size - add1 - len(img1), 0, size_half - len(img2[0]),
+        img2 = cv2.copyMakeBorder(img2, add2, size - add2 - len(img2), 0, size_half - len(img2[0]),
                                   cv2.BORDER_CONSTANT, value=(0, 0, 0))
         img=np.concatenate([img1,img2],axis=1)
     label = pd.DataFrame(columns=['class','Cx','Cy','w','h'])
