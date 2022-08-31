@@ -29,12 +29,12 @@ class c3(torch.nn.Module):
     def __init__(self,in1,out1,n):
         super().__init__()
         self.conv2d_bn_silu_1=conv2d_bn_silu(in1,in1//2,kernel_size=1,stride=1)
-        self.Sequential_residual=torch.nn.Sequential(*(residual(in1//2) for i in range(n)))
+        self.sequential_residual=torch.nn.Sequential(*(residual(in1//2) for i in range(n)))
         self.conv2d_bn_silu_2 = conv2d_bn_silu(in1, in1//2, kernel_size=1, stride=1)
         self.conv2d_bn_silu_3 = conv2d_bn_silu(in1, out1, kernel_size=1, stride=1)
     def forward(self,input1):
         input2=self.conv2d_bn_silu_1(input1)
-        x=self.Sequential_residual(input2)
+        x=self.sequential_residual(input2)
         x=x+input2
         input1=self.conv2d_bn_silu_2(input1)
         x=torch.cat([x,input1],axis=1)
