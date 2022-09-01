@@ -18,7 +18,6 @@ for i in range(len(dir_xml)):
     root=ET.parse(path_label+'/'+dir_xml[i]).getroot()
     for object in root.findall('object'):
         bndbox=object.find('bndbox')
-        a=bndbox[0].text.split('.')[0]
         value=[object.find('name').text,
                int(bndbox[0].text.split('.')[0]),
                int(bndbox[1].text.split('.')[0]),
