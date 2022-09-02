@@ -63,7 +63,6 @@ class OD(object):
                 pred_mask[:,2:4] = 4*pred_mask[:,2:4] #原版会对pred_mask[:, 2:4]做一个平方，此处没加平方，但值域一致，且线性操作不影响
                 ciou=self._ciou(pred_mask[:,0:4],true_mask[:,0:4])
                 loss_confidence = self.loss_confidence(pred_batch[i][...,4], true_batch[i][...,4])
-                loss_confidence += self.loss_confidence(pred_batch[i][mask_batch[i]][:,4],true_batch[i][mask_batch[i]][:,4]) #为提高精确率额外加上正样本损失
                 loss_class=self.loss_class(pred_mask[:,5:],true_mask[:,5:])
                 loss1+=self.args.loss_param[0][i]*self.args.loss_param[i+1][0]*(1-torch.mean(ciou))
                 loss2+=self.args.loss_param[0][i]*self.args.loss_param[i+1][1]*loss_confidence
