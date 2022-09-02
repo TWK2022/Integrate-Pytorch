@@ -25,8 +25,10 @@ class TSF(object):
                 optimizer.zero_grad()
                 loss_batch.backward()
                 optimizer.step()
-                if (item+1) % args.train_show == 0:
-                    print('| {} | 迭代次数:{} | 本批量loss({}):{:.4f} |'.format(args.model, item+1, args.loss, loss_batch))
+                if args.train_show[0]:
+                    if (item+1) % args.train_show[1] == 0:
+                        print('| {} | 迭代次数:{} | 本批量loss({}):{:.4f} |'.format(args.model, item+1, args.loss, loss_batch))
+            print('| {} | 最后一次迭代:{} | 本批量loss({}):{:.4f} |'.format(args.model, item + 1, args.loss, loss_batch))
             time_end = time.time()
             print('| {} | 本轮训练结束 时间:{:.2f}s |'.format(args.model,time_end - time_start))
         return model
