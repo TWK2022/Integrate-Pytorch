@@ -34,7 +34,7 @@ parser.add_argument('--loss', default='YOLO5', type=str, choices=['mae','mse','Y
 parser.add_argument('--loss_param', default=[[1/3,1/3,1/3],[0.2,0.6,0.2],[0.3,0.5,0.2],[0.4,0.4,0.2]], type=list, help='|损失权重|')
 parser.add_argument('--lr', default=0.0002, type=int,help='|初始学习率，训练中采用adam算法，多次训练调整时lr应调为0.0002以下|')
 parser.add_argument('--device', default='cuda', type=str,choices=['cuda','cpu'],help='|训练设备|')
-parser.add_argument('--train_show', default=[True, 2], type=list, help='|训练时多少次迭代计算一次指标，无论是否开启每轮最后一次迭代都会计算一次指标|')
+parser.add_argument('--train_show', default=[True, 5], type=list, help='|训练时多少次迭代计算一次指标，无论是否开启每轮最后一次迭代都会计算一次指标|')
 
 parser.add_argument('--TSF_column', default=[1,3], type=list, help='|TSF选择变量所在的列[0,1,2,...]|')
 parser.add_argument('--TSF_input', default=64, type=int, help='|TSF输入训练长度:4*n|')
