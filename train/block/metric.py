@@ -6,39 +6,6 @@ def mae(pred,true):
 def mse(pred,true):
     return torch.mean(torch.square(pred-true))
 
-# def precision_recall(args, pred, true, gt_number):  # 对网络输出单张图片进行置信度筛选、非极大值抑制、计算指标
-#     list_choose=[0 for i in range(len(pred))]
-#     for i in range(len(pred)):
-#         mask_screen = torch.where(pred[i][..., 4] > args.OD_screen_confidence, True, False)  # 置信度筛选
-#         list_choose[i] = torch.cat([pred[i][mask_screen], true[i][mask_screen]], axis=0)
-#     choose = torch.cat(list_choose, axis=0)  # 合并所有输出层
-#     if len(choose) == 0:
-#         print('!没有任何达标的预测框!')
-#         return None, None
-#     else:
-#         choose = nms(choose, args.OD_class, args.OD_nms_iou)  # 非极大值抑制
-#         pred = choose[..., 0:4]
-#         true = choose[..., 5+args.OD_class:9+args.OD_class]
-#         pred[..., 0:2] = 2 * pred[..., 0:2] - 0.5
-#         pred[..., 2:4] = 4 * pred[..., 2:4]
-#         pred[..., 0:2] = pred[..., 0:2] - 1 / 2 * pred[..., 2:4]
-#         pred[..., 2:4] = pred[..., 0:2] + pred[..., 2:4]
-#         true[..., 0:2] = true[..., 0:2] - 1 / 2 * true[..., 2:4]
-#         true[..., 2:4] = true[..., 0:2] + true[..., 2:4]
-#         if len(choose) == 1:
-#             pred_class = torch.argmax(choose[5: 5 + args.OD_class])
-#             true_class = torch.argmax(choose[-args.OD_class:])
-#             if pred_class == true_class and iou(pred, true) > args.OD_metric_iou:
-#                 return 1, 1 / gt_number
-#             else:
-#                 return 0, 0
-#         else:
-#             pred_class = torch.argmax(choose[:, 5: 5 + args.OD_class], axis=1)
-#             true_class = torch.argmax(choose[:, -args.OD_class:], axis=1)
-#             mask_screen = torch.where((pred_class == true_class) & (iou(pred, true) > args.OD_metric_iou), True, False)
-#             tp = len(pred_class[mask_screen])
-#         return tp / len(pred_class), tp / gt_number
-
 def nmsbefore_acc_pre_recall(pred,mask,true,screen_confidence,screen_iou,key=False):  # 对网络输出(单个/批量)求非极大值抑制前的指标
     tp_fn=0
     tn_fp=0
@@ -67,7 +34,7 @@ def nmsbefore_acc_pre_recall(pred,mask,true,screen_confidence,screen_iou,key=Fal
     return (tp+tn)/(tp_fn+tn_fp), tp/(tp+tn_fp-tn), tp/tp_fn
 
 
-def nms(choose, class_number, nms_iou):  # 需先经过置信度筛选。此nms会对所有类别分别进行非极大值抑制与合并
+def nms(choose, class_number, nms_iou):  # 会对所有类别分别进行非极大值抑制与合并
     if len(choose.shape) == 1:
         return choose
     choose = torch.stack(sorted(list(choose), key=lambda x: x[4], reverse=True), axis=0)  # 按置信度排序
