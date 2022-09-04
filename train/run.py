@@ -25,7 +25,7 @@ parser.add_argument('--data_name', default='lamp', type=str, help='|数据文件
 parser.add_argument('--model', default='YOLO5', type=str, choices=['LSTM','LSTM_CNN','SCINet','YOLO5'],help='|模型选择|')
 parser.add_argument('--model_param', default=[16,1], type=list,help='|模型参数:[1,2,...]|')
 parser.add_argument('--model_save', default=[True,'pkl'], type=list, help='|训练完后是否保存模型和保存的类型|')
-parser.add_argument('--model_test', default=False, type=bool,choices=[True,False],help='|不训练直接测试模型，同时不保存模型|')
+parser.add_argument('--model_test', default=True, type=bool,choices=[True,False],help='|不训练直接测试模型，同时不保存模型|')
 parser.add_argument('--model_continue', default=True, type=str,choices=[True,False],help='|是否接着训练已有模型|')
 
 parser.add_argument('--epoch', default=10, type=int,help='|训练轮数|')
