@@ -77,7 +77,7 @@ class OD(object):
             class_name=df_label['class'].values
             class_onehot=np.zeros((len_df_label,args.OD_class),dtype=np.float32)
             class_onehot[:,:]=args.OD_smooth[0]
-            for j in range(len_df_label):
+            for j in range(len_df_label):  # 将类别处理为独热编码并统计
                 if class_name[j] not in class_list:
                     class_dict[class_name[j]]=[len(class_list),0,0,0,0]
                     class_onehot[j, len(class_list)]=args.OD_smooth[1]
@@ -93,7 +93,7 @@ class OD(object):
             self.list_label[i]=[file_name, len_df_label, np.concatenate((frame,confidence,class_onehot),axis=1)]
         self.dict_dataset={}
         self.dict_dataset['class_list']=class_list  # 存放类别名称
-        self.dict_dataset['class_dict']=class_dict  # 存放变迁对应的下标和宽高的最小最大值[n,w_min,h_min,w_max,h_max]
+        self.dict_dataset['class_dict']=class_dict  # 存放类别对应的下标和宽高的最小最大值[n,w_min,h_min,w_max,h_max]
         self.dict_dataset['stride'] = [args.OD_size//i for i in args.OD_output[0]]  # 存放每个输出层对应的步长
         return self._divide()
     def _divide(self):
