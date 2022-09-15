@@ -27,7 +27,7 @@ for i in range(len(dir_img)):
     frame=label[['Cx','Cy','w','h']].values
     if HSV:
         name += '_H'
-        H_add = np.random.randint(0, 5, 1)[0]  # H通道增加量
+        H_add = np.random.randint(0, 10, 1)[0]  # H通道增加量
         img=cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
         img[:,:,0]+=H_add
         img=cv2.cvtColor(img,cv2.COLOR_HSV2BGR)
