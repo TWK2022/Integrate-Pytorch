@@ -37,7 +37,7 @@ for i in range(len(dir_img)):
         img=cv2.flip(img,1)
         frame[:,0]=w-frame[:,0]
     if noise:
-        img = img / 255 + np.random.normal(0, 0.03, img.shape)
+        img = img / 255 + np.random.normal(0, 0.04, img.shape)
         img = (np.clip(img, 0, 1) * 255).astype(np.uint8)
     label[['Cx', 'Cy', 'w', 'h']]=frame
     label.to_csv(save_label+'/'+name+'.csv',index=False)
