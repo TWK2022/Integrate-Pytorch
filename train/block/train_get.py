@@ -97,7 +97,7 @@ class OD_dataset(torch.utils.data.Dataset):
     def __getitem__(self, index):
         args=self.args
         dict_dataset=self.dict_dataset
-        train=torch.tensor(dict_dataset['img_train'][index]/255).type(torch.float32).to(args.device)
+        train=torch.tensor(dict_dataset['img_train'][index]/255).type(torch.float32).to(args.device)  # 归一化
         list_mask=[0 for i in range(len(args.OD_output[0]))]
         list_label=[0 for i in range(len(args.OD_output[0]))]
         for i,stride in enumerate(dict_dataset['stride']):  # 对每个输出层分别处理
